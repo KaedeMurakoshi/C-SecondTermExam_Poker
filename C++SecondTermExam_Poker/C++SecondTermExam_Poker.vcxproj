@@ -128,10 +128,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="C++SecondTermExam_Poker.cpp" />
+    <ClCompile Include="Card.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Shoe.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Card.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Shoe.h" />
     <ClInclude Include="Common.h" />

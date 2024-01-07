@@ -1,16 +1,18 @@
 #pragma once
 #include"Common.h"
+#include "Card.h"
 
 class Shoe
 {
 public:
 	Shoe();				// コンストラクタ
 	virtual ~Shoe();	// デストラクタはvirtualをつける
-	int TakeCard();		// カードを１枚返す	
-
+	Card TakeCard();		// カードを１枚返す	
+	
 private:
-	int _card[CARD_NUM];
+	Card _cards[MAX_CARD_NUM];
 	int _cardNum;		// カードが何枚残っているか
 	void _Shuffle();	// シャッフル
+	void InitShoe();		// 山札の初期化
 };
 
