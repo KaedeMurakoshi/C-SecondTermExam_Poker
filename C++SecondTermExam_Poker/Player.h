@@ -16,6 +16,7 @@ public:
 	void ExchangeCards(Shoe& shoe);		//èDŒğŠ·
 private:
 	//void ExchangeCards();		//èDŒğŠ·
+	void SortHand();			//èD•À‚Ñ‘Ö‚¦
 
 private:
 	char* _pName;
