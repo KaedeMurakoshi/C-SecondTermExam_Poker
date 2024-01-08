@@ -11,13 +11,17 @@ int main()
 {
 	srand(time(NULL));
 
-	printf("＜ルール＞\n・ジョーカーなし\n・手札5枚\n・一回だけ０～５枚のカードを交換可能\n・\n");
-
 	Shoe shoe;
 
-	//デバッグ
-	/*for (int i = 0; i < MAX_CARD_NUM; ++i)
-	{
-		shoe._cards[i].ShowCard();
-	}*/
+	Player p1("Kaede");
+	Player p2("Hosaka");
+	Player p3("Tokita");
+	Player p4("Sugawara");
+
+	// メンバ変数にポインタがないので値渡しできる
+	Player playerList[] = { p1, p2, p3, p4 };
+
+	printf("＜ルール＞\n・ジョーカーなし\n・手札5枚\n・一回だけ０～５枚のカードを交換可能\n・\n");
+
+	playerList[0].Play(shoe);
 }

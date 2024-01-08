@@ -9,11 +9,25 @@ public:
 	virtual~Card();		//デストラクタ
 	void ShowCard();	//表示用
 
-	Card& operator =(const Card& other)
+	//代入演算子のオーバーロード
+	Card& operator =(const Card& other)	
 	{
 		_num = other._num;
 		_suit = other._suit;
 		return *this;
+	}
+
+	//比較演算子のオーバーロード
+	bool operator >(const Card& other)
+	{
+		if (_num > other._num)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	int GetNum()const		//カードの数字取得

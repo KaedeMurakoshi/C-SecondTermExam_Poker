@@ -19,9 +19,8 @@ Card Shoe::TakeCard()
 	if (_cardNum <= 0)
 	{
 		InitShoe();
-		_cardNum = MAX_CARD_NUM;
 	}
-
+	
 	// 山札の後ろから引いていく
 	--_cardNum;
 	Card card = _cards[_cardNum];
@@ -47,11 +46,11 @@ void Shoe::InitShoe()
 	}
 
 	// シャッフル
-	_Shuffle();
+	Shuffle();
 }
 
 //フィッシャーイェーツシャッフル
-void Shoe::_Shuffle()
+void Shoe::Shuffle()
 {
 	for (int i = MAX_CARD_NUM - 1; i > 0; --i) 
 	{

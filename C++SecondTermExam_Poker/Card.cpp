@@ -3,7 +3,7 @@
 #include "Card.h"
 
 const char* suitsForShow[SUIT_NUM] = { "SPADE", "DIAMOND", "HEART", "CLUB", };
-const char* numsForShow[NUM_NUM] = { "2", "3", "4",  "5",  "6",  "7",  "8",  "9",  "X",  "J",  "Q",  "K",  "A", };
+const char* numsForShow[MAX_NUM] = { "2", "3", "4",  "5",  "6",  "7",  "8",  "9",  "X",  "J",  "Q",  "K",  "A", };
 
 
 //コンストラクタ

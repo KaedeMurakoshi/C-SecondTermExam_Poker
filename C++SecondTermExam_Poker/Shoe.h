@@ -10,9 +10,11 @@ public:
 	Card TakeCard();		// カードを１枚返す	
 	
 private:
+	void Shuffle();	// シャッフル
+	void InitShoe();		// 山札の初期化
+
+private:
 	Card _cards[MAX_CARD_NUM];
 	int _cardNum;		// カードが何枚残っているか
-	void _Shuffle();	// シャッフル
-	void InitShoe();		// 山札の初期化
 };
 
