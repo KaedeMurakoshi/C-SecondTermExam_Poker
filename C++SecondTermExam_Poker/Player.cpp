@@ -4,6 +4,7 @@
 #include<algorithm>
 
 #include "Player.h"
+#include "DetermineHand.h"
 
 using namespace std;
 
@@ -11,11 +12,11 @@ using namespace std;
 Player::Player(const char* pName)
 {
 	// èâä˙âª
-	/*for (int i = 0; i < MAX_HAND_NUM; ++i)
+	for (int i = 0; i < HAND_NUM; ++i)
 	{
 		_hand->SetNum(-1);
 		_hand->SetSuit(-1);
-	}*/
+	}
 
 	_pName = new char[strlen(pName) + 1];
 	strcpy(_pName, pName);
@@ -120,6 +121,8 @@ int Player::DetermineHand()
 		++countNum[_hand[i].GetNum()];
 		++countSuit[_hand[i].GetSuit()];
 	}
+	if (IsRoyalStraightFlush(countNum, countSuit));
+
 	return 0;
 }
 
@@ -137,121 +140,4 @@ void Player::SortHand()
 			_hand[j + 1] = tempCard;
 		}
 	}
-}
-
-static bool IsRoyalStraightFlush(const int countNum, const int countSuit)
-{
-	
-}
-
-static bool IsStraightFlush(const int countNum, const int countSuit)
-{
-
-}
-
-static bool IsFourOfAKind(const int* countNum)
-{
-	for (int i = 0; i < NUM_NUM; ++i)
-	{
-		if (countNum[i] == SUIT_NUM)
-		{
-			return true;
-		}
-	}
-
-	return false;
-}
-
-static bool IsHullHouse(const int* countNum)
-{
-	bool twoCard = false;
-	bool threeCard = false;
-
-	for (int i = 0; i < NUM_NUM; i++)
-	{
-		if (countNum[i] == 2)
-		{
-			twoCard = true;
-		}
-		else if(countNum[i] == 3)
-		{
-			threeCard = true;
-		}
-	}
-
-	if (twoCard && threeCard)
-	{
-		return true;
-	}
-
-	return false;	
-}
-
-static bool IsFlush(const int* countSuit)
-{
-	for (int i = 0; i < SUIT_NUM; ++i)
-	{
-		if (countSuit[i] == HAND_NUM)
-		{
-			return true;
-		}
-	}
-
-	return false;
-}
-
-static bool IsStraight(const int* countNum, const int* countSuit)
-{
-
-}
-
-static bool IsThreeOfAKind(const int* countNum)
-{
-	for (int i = 0; i < NUM_NUM; i++)
-	{
-		if (countNum[i] == 3)
-		{
-			return true;
-		}
-	}
-
-	return false;
-}
-
-static bool IsTwoPair(const int* countNum)
-{
-	int countPair = 0;
-
-	for (int i = 0; i < NUM_NUM; ++i)
-	{
-		if (countNum[i] == 2)
-		{
-			++countPair;
-		}
-	}
-
-	if (countPair == 2)
-	{
-		return true;
-	}
-
-	return false;
-}
-
-static bool IsOnePair(const int* countNum)
-{
-	for (int i = 0; i < NUM_NUM; i++)
-	{
-		if (countNum[i] == 2)
-		{
-			return true;
-		}
-	}
-
-	return false;
-}
-
-static bool IsNoHand(const int countNum, const int countSuit)
-{
-
 }
