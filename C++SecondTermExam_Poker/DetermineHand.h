@@ -2,6 +2,10 @@
 
 #include "Common.h"
 
+bool IsStraightFlush(const int* countNum, const int* countSuit);
+bool IsStraight(const int* countNum);
+bool IsFlush(const int* countSuit);
+
 bool IsRoyalStraightFlush(const int* countNum, const int* countSuit)
 {
 	//ストレートフラッシュかつ最大値がエースならロイヤルストレートフラッシュ
@@ -20,6 +24,8 @@ bool IsStraightFlush(const int* countNum, const int* countSuit)
 	{
 		return true;
 	}
+
+	return false;
 }
 
 bool IsFourOfAKind(const int* countNum)

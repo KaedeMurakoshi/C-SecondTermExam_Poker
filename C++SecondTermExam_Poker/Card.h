@@ -1,6 +1,8 @@
 #pragma once
 #include "Common.h"
 
+using namespace std;
+
 class Card
 {
 public:
@@ -33,11 +35,21 @@ public:
 	int GetNum()const		//カードの数字取得
 	{
 		//エラーチェック
+		if (_num < 0 || _num >= NUM_NUM)
+		{
+			cout << "[エラー]無効なデータにアクセスしました。" << endl;
+			return 0;
+		}
 		return _num;
 	}
 	int GetSuit()const		//カードのマーク取得
 	{
 		//エラーチェック
+		if (_suit < 0 || _suit >= SUIT_NUM)
+		{
+			cout << "[エラー]無効なデータにアクセスしました。" << endl;
+			return 0;
+		}
 		return _suit;
 	}
 	void SetNum(int num)	//カードの数字を書き込む

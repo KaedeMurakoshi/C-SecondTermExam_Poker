@@ -12,6 +12,9 @@ using namespace std;
 Player::Player(const char* pName)
 {
 	// 初期化
+	_point[0] = -1;
+	_point[1] = -1;
+
 	for (int i = 0; i < HAND_NUM; ++i)
 	{
 		_hand->SetNum(-1);
@@ -32,10 +35,6 @@ Player::~Player()
 	}
 }
 
-const char* Player::GetName()const
-{
-	return _pName;
-}
 
 //手札表示
 void Player::ShowHand()
@@ -69,6 +68,7 @@ void Player::Play(Shoe& shoe)
 	{
 		cout << "カードを交換しますか？\n1.Yes 2.No > " << flush;
 		cin >> ch;
+		cout << endl;
 	}
 
 	if (ch == 1)
@@ -77,8 +77,7 @@ void Player::Play(Shoe& shoe)
 		ShowHand();
 	}
 
-	//デバッグ用役表示
-	cout << DetermineHand() << endl;
+	_point[0] = DetermineHand();
 }
 
 //手札交換
@@ -105,7 +104,7 @@ void Player::ExchangeCards(Shoe& shoe)
 }
 
 //役の判定
-int Player::DetermineHand()
+Hand Player::DetermineHand()
 {
 	//集計の準備
 	int countNum[NUM_NUM];		//同じ数字の数をカウント
@@ -121,9 +120,57 @@ int Player::DetermineHand()
 		++countNum[_hand[i].GetNum()];
 		++countSuit[_hand[i].GetSuit()];
 	}
-	if (IsRoyalStraightFlush(countNum, countSuit));
 
-	return 0;
+	//役の判定と表示
+	if (IsRoyalStraightFlush(countNum, countSuit)) {
+		printf("[%sの役]\n  ロイヤルストレートフラッシュ\n", GetName());
+		return RoyalStraightFlush;
+	}
+
+	if (IsStraightFlush(countNum, countSuit)) {
+		printf("[%sの役]\n  ストレートフラッシュ\n", GetName());
+		return StraightFlush;
+	}
+
+	if (IsFourOfAKind(countNum)) {
+		printf("[%sの役]\n  フォーカード\n", GetName());
+		return FourOfAKind;
+	}
+
+	if (IsHullHouse(countNum)) {
+		printf("[%sの役]\n  フルハウス\n", GetName());
+		return HullHouse;
+	}
+
+	if (IsFlush(countSuit)) {
+		printf("[%sの役]\n  フラッシュ\n", GetName());
+		return Flush;
+	}
+
+	if (IsStraight(countNum)) {
+		printf("[%sの役]\n  ストレート\n", GetName());
+		return Straight;
+	}
+
+	if (IsThreeOfAKind(countNum)) {
+		printf("[%sの役]\n  スリーカード\n", GetName());
+		return ThreeOfAKind;
+	}
+
+	if (IsTwoPair(countNum)) {
+		printf("[%sの役]\n  ツーペア\n", GetName());
+		return TwoPair;
+	}
+
+	if (IsOnePair(countNum)) {
+		printf("[%sの役]\n  ワンペア\n", GetName());
+		return OnePair;
+	}
+	else
+	{
+		printf("[%sの役]\n  ノーペア\n", GetName());
+		return No_Hand;
+	}
 }
 
 //バブルソート（昇順）
