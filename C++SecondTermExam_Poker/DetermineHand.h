@@ -2,11 +2,11 @@
 
 #include "Common.h"
 
-bool IsStraightFlush(const int* countNum, const int* countSuit);
-bool IsStraight(const int* countNum);
-bool IsFlush(const int* countSuit);
+int IsStraightFlush(const int* countNum, const int* countSuit);
+int IsStraight(const int* countNum);
+int IsFlush(const int* countSuit);
 
-bool IsRoyalStraightFlush(const int* countNum, const int* countSuit)
+int IsRoyalStraightFlush(const int* countNum, const int* countSuit)
 {
 	//ストレートフラッシュかつ最大値がエースならロイヤルストレートフラッシュ
 	if (IsStraightFlush(countNum, countSuit) && countNum[NUM_NUM - 1] == 1)
@@ -14,34 +14,34 @@ bool IsRoyalStraightFlush(const int* countNum, const int* countSuit)
 		return true;
 	}
 
-	return false;
+	return 	0;
 }
 
-bool IsStraightFlush(const int* countNum, const int* countSuit)
+int IsStraightFlush(const int* countNum, const int* countSuit)
 {
 	//ストレートかつフラッシュならストレートフラッシュ
 	if (IsStraight(countNum) && IsFlush(countSuit))
 	{
-		return true;
+		return 8;
 	}
 
-	return false;
+	return No_Hand;
 }
 
-bool IsFourOfAKind(const int* countNum)
+int IsFourOfAKind(const int* countNum)
 {
 	for (int i = 0; i < NUM_NUM; ++i)
 	{
 		if (countNum[i] == SUIT_NUM)
 		{
-			return true;
+			return 7;
 		}
 	}
 
-	return false;
+	return 0;
 }
 
-bool IsHullHouse(const int* countNum)
+int IsHullHouse(const int* countNum)
 {
 	bool twoCard = false;
 	bool threeCard = false;
@@ -60,26 +60,27 @@ bool IsHullHouse(const int* countNum)
 
 	if (twoCard && threeCard)
 	{
-		return true;
+		return 6;
 	}
 
-	return false;
+	return 0;
 }
 
-bool IsFlush(const int* countSuit)
+int IsFlush(const int* countSuit)
 {
 	for (int i = 0; i < SUIT_NUM; ++i)
 	{
+		//同じマークのカードが５枚ならフラッシュ
 		if (countSuit[i] == HAND_NUM)
 		{
-			return true;
+			return 10;	//フラッシュ同士の勝敗は手札の最大のカードで決めるので、とりあえずtrueの１を返す
 		}
 	}
 
-	return false;
+	return 0;
 }
 
-bool IsStraight(const int* countNum)
+int IsStraight(const int* countNum)
 {
 	//１０（データ上は８）より大きい数から始まるストレートは存在しない
 	for (int i = 0; i <= NUM_NUM - HAND_NUM; ++i)
@@ -97,32 +98,32 @@ bool IsStraight(const int* countNum)
 				//一個でも１枚じゃないカードがあればアウト
 				else
 				{
-					return false;
+					return 0;
 				}
 			}
 			//５枚昇順に並んでいればストレート
-			return true;
+			return i + 1;
 		}
 	}
 
 	//同じ数字が一枚のカードがなければアウト
-	return false;
+	return 0;
 }
 
-bool IsThreeOfAKind(const int* countNum)
+int IsThreeOfAKind(const int* countNum)
 {
 	for (int i = 0; i < NUM_NUM; i++)
 	{
 		if (countNum[i] == 3)
 		{
-			return true;
+			return i + 1;
 		}
 	}
 
-	return false;
+	return 0;
 }
 
-bool IsTwoPair(const int* countNum)
+int IsTwoPair(const int* countNum)
 {
 	int countPair = 0;
 
@@ -131,26 +132,26 @@ bool IsTwoPair(const int* countNum)
 		if (countNum[i] == 2)
 		{
 			++countPair;
+			//ペアが２回目ならツーペア
+			if (countPair == 2)
+			{
+				return i + 1;
+			}
 		}
 	}
 
-	if (countPair == 2)
-	{
-		return true;
-	}
-
-	return false;
+	return 0;
 }
 
-bool IsOnePair(const int* countNum)
+int IsOnePair(const int* countNum)
 {
 	for (int i = 0; i < NUM_NUM; i++)
 	{
 		if (countNum[i] == 2)
 		{
-			return true;
+			return i + 1;
 		}
 	}
 
-	return false;
+	return 0;
 }

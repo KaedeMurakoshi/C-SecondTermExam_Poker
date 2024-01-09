@@ -19,3 +19,10 @@ enum Hand
 	StraightFlush,
 	RoyalStraightFlush,
 };
+
+//“¾“_‚ğ“ü‚ê‚é”z—ñ‚ÌAn”Ô–Ú‚Ì–ğŠ„
+enum PointArray
+{
+	Point_Of_Hand,
+	Power_Of_Hand,
+};

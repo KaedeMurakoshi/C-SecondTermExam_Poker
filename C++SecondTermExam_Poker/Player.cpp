@@ -12,8 +12,8 @@ using namespace std;
 Player::Player(const char* pName)
 {
 	// 初期化
-	_point[0] = -1;
-	_point[1] = -1;
+	_point[Point_Of_Hand] = 0;
+	_point[Power_Of_Hand] = 0;
 
 	for (int i = 0; i < HAND_NUM; ++i)
 	{
@@ -42,7 +42,7 @@ void Player::ShowHand()
 	//手札並び替え
 	SortHand();
 
-	printf("＝＝＝%s＝＝＝\n", _pName);
+	printf("＝＝＝%s＝＝＝\n", GetName());
 	for (int i = 0; i < HAND_NUM; ++i)
 	{
 		printf("[%d]", i + 1);
@@ -77,7 +77,7 @@ void Player::Play(Shoe& shoe)
 		ShowHand();
 	}
 
-	_point[0] = DetermineHand();
+	_point[Point_Of_Hand] = DetermineHand();
 }
 
 //手札交換
@@ -120,49 +120,60 @@ Hand Player::DetermineHand()
 		++countNum[_hand[i].GetNum()];
 		++countSuit[_hand[i].GetSuit()];
 	}
-
+	
 	//役の判定と表示
-	if (IsRoyalStraightFlush(countNum, countSuit)) {
+	if (_point[Power_Of_Hand] = IsRoyalStraightFlush(countNum, countSuit))
+	{
 		printf("[%sの役]\n  ロイヤルストレートフラッシュ\n", GetName());
 		return RoyalStraightFlush;
 	}
 
-	if (IsStraightFlush(countNum, countSuit)) {
+	if (_point[Power_Of_Hand] = IsStraightFlush(countNum, countSuit))
+	{
 		printf("[%sの役]\n  ストレートフラッシュ\n", GetName());
 		return StraightFlush;
 	}
 
-	if (IsFourOfAKind(countNum)) {
+	if (_point[Power_Of_Hand] = IsFourOfAKind(countNum))
+	{
 		printf("[%sの役]\n  フォーカード\n", GetName());
 		return FourOfAKind;
 	}
 
-	if (IsHullHouse(countNum)) {
+	if (_point[Power_Of_Hand] = IsHullHouse(countNum))
+	{
 		printf("[%sの役]\n  フルハウス\n", GetName());
 		return HullHouse;
 	}
 
-	if (IsFlush(countSuit)) {
+	//フラッシュどうしの比較には手札の一番強いカードを使う
+	if (_point[Power_Of_Hand] = IsFlush(countSuit))
+	{
+		_point[Power_Of_Hand] += _hand[HAND_NUM - 1].GetNum();
 		printf("[%sの役]\n  フラッシュ\n", GetName());
 		return Flush;
 	}
 
-	if (IsStraight(countNum)) {
+	if (_point[Power_Of_Hand] = IsStraight(countNum))
+	{
 		printf("[%sの役]\n  ストレート\n", GetName());
 		return Straight;
 	}
 
-	if (IsThreeOfAKind(countNum)) {
+	if (_point[Power_Of_Hand] = IsThreeOfAKind(countNum))
+	{
 		printf("[%sの役]\n  スリーカード\n", GetName());
 		return ThreeOfAKind;
 	}
 
-	if (IsTwoPair(countNum)) {
+	if (_point[Power_Of_Hand] = IsTwoPair(countNum))
+	{
 		printf("[%sの役]\n  ツーペア\n", GetName());
 		return TwoPair;
 	}
 
-	if (IsOnePair(countNum)) {
+	if (_point[Power_Of_Hand] = IsOnePair(countNum))
+	{
 		printf("[%sの役]\n  ワンペア\n", GetName());
 		return OnePair;
 	}
